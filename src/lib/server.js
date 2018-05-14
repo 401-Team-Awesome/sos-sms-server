@@ -4,7 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import logger from './logger';
 import errorMiddleWare from './error-middleware';
-import messageRouter from './routes/message-router';
+import messageRouter from '../routes/message-router';
 
 const app = express();
 let server = null;
