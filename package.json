@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "jest --coverage --forceExit --runInBand",
+    "dbon": "mkdir -p ./db && mongod --dbpath ./db",
+    "dboff": "killall mongod",
+    "build": "babel src -d build",
+    "start": "babel src -d build && node index.js"
   },
   "repository": {
     "type": "git",
