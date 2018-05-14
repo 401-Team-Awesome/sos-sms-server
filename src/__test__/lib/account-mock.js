@@ -1,6 +1,5 @@
 'use strict';
 
-import faker from 'faker';
 import Account from '../../model/account';
 
 const pCreateAccountMock = () => {
