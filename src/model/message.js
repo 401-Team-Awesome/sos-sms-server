@@ -7,7 +7,7 @@ import Account from '../model/account'; // eslint-disable-line
 const messageSchema = mongoose.Schema({
   user: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
   },
   error: {

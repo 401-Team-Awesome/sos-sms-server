@@ -1,5 +1,6 @@
 .idea/
 db/
+test.env.js
 
 # Created by https://www.gitignore.io/api/vim,node,macos,linux,windows,webstorm,visualstudiocode
 
