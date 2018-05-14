@@ -16,7 +16,7 @@ app.all('*', (request, response) => {
   return response.sendStatus(404);
 });
 
-// app.use(errorMiddleWare);
+app.use(errorMiddleWare);
 
 const startServer = () => {
   return mongoose.connect(process.env.MONGODB_URI)
