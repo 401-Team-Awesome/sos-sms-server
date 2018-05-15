@@ -3,11 +3,10 @@
 import mongoose from 'mongoose';
 
 const accountSchema = mongoose.Schema({
-  userID: { type: String }, // will be created my mongo
   userPhoneNumber: {
-    type: Number, 
+    type: String, 
     required: true,
-    unique: true,
+    // unique: true,
   },
 });
 
