@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
     "test": "jest --coverage --forceExit --runInBand",
     "testjest": "jest --coverage",
     "dbon": "mkdir -p ./db && mongod --dbpath ./db",
