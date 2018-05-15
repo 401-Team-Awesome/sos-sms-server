@@ -10,17 +10,30 @@ const messageSchema = mongoose.Schema({
     // required: true,
     unique: true,
   },
+  phoneNumber: {
+    type: String,
+  },
   error: {
     type: Number,
     required: true,
   },
+  errorLocation: {
+    type: String,
+  },
   message: {
+    type: String,
+  },
+  response: {
     type: String,
   },
   account: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'account',
+  },
+  timeStamp: {
+    type: Date,
+    default: () => new Date(), 
   },
 });
 
