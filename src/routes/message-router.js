@@ -16,7 +16,7 @@ const messageRouter = new Router();
 
 messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) => {
   logger.log(logger.INFO, 'MESSAGE-ROUTER POST: processing a request');
-  console.log(request.body);
+  console.log(request.body, 'this is the body');
   if (!request.body.error) {
     logger.log(logger.INFO, 'MESSAGE-ROUTER POST: Error message required.');
     return next(new HttpErrors(400, 'Error message required.'));
@@ -32,7 +32,10 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
           from: process.env.TWILIO_NUMBER,
           to: account.userPhoneNumber,
         })
-        .then(message => console.log(message.sid, 'this is the message.sid'))
+        .then((message) => {
+          console.log('hi');
+          console.log(message.sid, 'this is the message.sid');
+        })
         .done();
     })
     .then(console.log('message sent via twilio'))
