@@ -5,11 +5,13 @@ import mongoose from 'mongoose';
 import logger from './logger';
 import errorMiddleWare from './error-middleware';
 import messageRouter from '../routes/message-router';
+import accountRouter from '../routes/account-router';
 
 const app = express();
 let server = null;
 
 app.use(messageRouter);
+app.use(accountRouter);
 
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning a 404 from the catch-all/default route');
