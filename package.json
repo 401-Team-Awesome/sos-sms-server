@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "jest --coverage --forceExit --runInBand",
     "testjest": "jest --coverage",
     "dbon": "mkdir -p ./db && mongod --dbpath ./db",
@@ -42,6 +43,7 @@
     "faker": "^4.1.0",
     "http-errors": "^1.6.3",
     "jsonwebtoken": "^8.2.1",
+    "lint": "^1.1.2",
     "mongoose": "^5.0.16",
     "multer": "^1.3.0",
     "superagent": "^3.8.3",
