@@ -2,6 +2,7 @@
 db/
 src/__test__/lib/test.env.js
 build/__test__/lib/test.env.js
+**.env
 
 # Created by https://www.gitignore.io/api/vim,node,macos,linux,windows,webstorm,visualstudiocode
 
