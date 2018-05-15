@@ -12,9 +12,9 @@ const accountRouter = new Router();
 
 accountRouter.post('/api/accounts', jsonParser, (request, response, next) => {
   console.log('inside router');
-  if (!request.body.username || !request.body.userPhoneNumber) {
-    return next(new HttpErrors(400, 'userID and userPhoneNumber are required!'));
-  }
+  // if (!request.body.username || !request.body.userPhoneNumber) {
+  //   return next(new HttpErrors(400, 'userID and userPhoneNumber are required!'));
+  // }
   return new Account(request.body).save()
     .then((account) => {
       logger.log(logger.INFO, 'ROUTER POST: 200');
