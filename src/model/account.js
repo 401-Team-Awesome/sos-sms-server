@@ -6,7 +6,7 @@ const accountSchema = mongoose.Schema({
   // username: {
   //   type: String,
   //   required: true,
-  //   unique: true,
+  //   // unique: true,
   // },
   userPhoneNumber: {
     type: String, 
