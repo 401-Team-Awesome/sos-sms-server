@@ -1,6 +1,6 @@
 'use strict';
 
-import faker from 'faker';
+import faker from 'faker'; // eslint-disable-line
 import Account from '../../model/account';
 
 
@@ -15,4 +15,3 @@ const pCreateAccountMock = () => {
 const pRemoveAccountMock = () => Account.remove({});
 
 export { pCreateAccountMock, pRemoveAccountMock };
-

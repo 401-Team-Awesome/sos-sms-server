@@ -2,7 +2,7 @@
 
 import { startServer, stopServer } from '../lib/server';
 import sossms from '../lib/sos-sms-middleware';
-import { pCreateAccountMock, pRemoveAccountMock } from './lib/account-mock';
+import { pCreateAccountMock, pRemoveAccountMock } from './lib/auth-mock';
 import logger from '../lib/logger';
 
 describe('testing sms sos middleware', () => {

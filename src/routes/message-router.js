@@ -7,6 +7,7 @@ import Twilio from 'twilio';
 import logger from '../lib/logger';
 // import Message from '../model/message';
 import Account from '../model/account';
+import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
 // const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -14,7 +15,7 @@ const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUT
 const jsonParser = bodyParser.json();
 const messageRouter = new Router();
 
-messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) => {
+messageRouter.post('/api/messages/:id', jsonParser, bearerAuthMiddleware, (request, response, next) => {
   logger.log(logger.INFO, 'MESSAGE-ROUTER POST: processing a request');
   console.log(request.body);
   if (!request.body.error) {
@@ -23,9 +24,6 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
   }
   return Account.findById(request.params.id)
     .then((account) => {
-      console.log(request.params.id, 'params id in findbyid return');
-      console.log(account, 'this is the account');
-      console.log(account.userPhoneNumber);
       client.messages
         .create({
           body: `${request.body.error}: ${request.body.message}`,

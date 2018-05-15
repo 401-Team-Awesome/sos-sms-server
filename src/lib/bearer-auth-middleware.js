@@ -2,7 +2,7 @@
 
 import HttpError from 'http-errors';
 import jsonWebToken from 'jsonwebtoken';
-import Account from '../../model/account';
+import Account from '../model/account';
 
 const promisify = callbackStyleFunction => (...args) => {
   return new Promise((resolve, reject) => {

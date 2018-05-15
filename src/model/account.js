@@ -3,19 +3,34 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
-import jsonWebToken from 'jsonWebToken';
+import jsonWebToken from 'jsonwebtoken';
 
 const HASH_ROUNDS = 8;
 const TOKEN_SEED_LENGTH = 128;
 
 const accountSchema = mongoose.Schema({
+  username: {
+    type: String,
+    // required: true,
+    unique: true,
+  },
+  email: {
+    type: String,
+    // required: true, 
+    unique: true,
+  },
+  password: {
+    type: String,
+    // required: true,
+    unique: true,
+  },
   passwordHash: {
     type: String,
     required: true,
   },
   userPhoneNumber: {
     type: String, 
-    required: true,
+    // required: true,
     // unique: true,
   },
   tokenSeed: {
@@ -55,13 +70,11 @@ const Account = mongoose.model('account', accountSchema);
 Account.create = (username, email, password) => {
   return bcrypt.hash(password, HASH_ROUNDS)
     .then((passwordHash) => {
-      password = null;
+      password = null; 
       const tokenSeed = crypto.randomBytes(TOKEN_SEED_LENGTH).toString('hex');
       return new Account({
         passwordHash,
-        userPhoneNumber,
         tokenSeed,
-        timeStamp,
       }).save();
     });
 };
