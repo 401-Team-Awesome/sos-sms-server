@@ -5,9 +5,10 @@ import bodyParser from 'body-parser';
 import HttpErrors from 'http-errors';
 import Twilio from 'twilio';
 import logger from '../lib/logger';
-import Message from '../model/message';
+// import Message from '../model/message';
 import Account from '../model/account';
 
+// const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const jsonParser = bodyParser.json();
@@ -15,13 +16,16 @@ const messageRouter = new Router();
 
 messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) => {
   logger.log(logger.INFO, 'MESSAGE-ROUTER POST: processing a request');
+  console.log(request.body);
   if (!request.body.error) {
     logger.log(logger.INFO, 'MESSAGE-ROUTER POST: Error message required.');
     return next(new HttpErrors(400, 'Error message required.'));
   }
   return Account.findById(request.params.id)
     .then((account) => {
-      // logger.log(logger.INFO, 'MESSAGE-ROUTER POST: 200 status');
+      console.log(request.params.id, 'params id in findbyid return');
+      console.log(account, 'this is the account');
+      console.log(account.userPhoneNumber);
       client.messages
         .create({
           body: `${request.body.error}: ${request.body.message}`,
