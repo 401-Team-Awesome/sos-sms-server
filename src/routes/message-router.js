@@ -28,7 +28,7 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
       console.log(account.userPhoneNumber);
       return new Message({
         userPhoneNumber: account.userPhoneNumber,
-        account: account._id,
+        // account: account._id,
         error: request.body.error,
         message: request.body.message,
       })
