@@ -15,16 +15,19 @@ export default (error, request, response, next) => {
 
   if (errorMessage.includes('objectid failed')) {
     logger.log(logger.INFO, 'Responding with a 404 code');
+    console.log('1 ERRRORRR');
     return response.sendStatus(404);
   }
 
   if (errorMessage.includes('validation failed')) {
     logger.log(logger.INFO, 'Responding with a 400 code');
+    console.log('2 ERRRORRR');
     return response.sendStatus(400);
   }
 
   if (errorMessage.includes('duplicate key')) {
     logger.log(logger.INFO, 'Responding with a 409 code');
+    console.log('3 ERRRORRR');
     return response.sendStatus(409);
   }
 
@@ -35,5 +38,6 @@ export default (error, request, response, next) => {
 
   logger.log(logger.ERROR, 'Responding with a 500 error code');
   logger.log(logger.ERROR, error);
+  console.log('5 ERRRORRR');
   return response.sendStatus(500);
 };

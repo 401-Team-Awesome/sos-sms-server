@@ -10,7 +10,7 @@ const accountSchema = mongoose.Schema({
   // },
   userPhoneNumber: {
     type: String, 
-    required: true,
+    required: true, 
     // unique: true,
   },
 });
