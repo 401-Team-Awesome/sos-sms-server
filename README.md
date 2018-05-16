@@ -1,4 +1,4 @@
-# sos-sms-server
+# SOS-SMS
 
 This application allows a user to easily send at text message containing  an error number and error message from any where in their code.  To do so the user must first install the __sossms__ npm package, which will enable them to use our function.
 
@@ -23,7 +23,7 @@ Accounts will be able to have many messages, but each message can only be attach
 References to the messages are stored under the Account.messages property.
 
 the __\_id__ of the Account holding a message can be accessed from a message instance via the messages __account__ property.  _Example:_ __message.account__
-# npm package
+# Install the __npm__ package
 - __npm i sossms__
 - __require the package into your file__
 -  __the function signature is: (error, userID, message)__ 
@@ -33,7 +33,7 @@ The function signature takes in an __error code__ (which is a string), a __user 
 This function can be invoked anywhere in your code.
 
 
-# Send a Message
+# Send an SMS Message!
 Simply __invoke__ the function any where in your code with the required arguments and it will send a post request to our API.  The POST request to our API logs a message to our MongoDB messages database and sends an __SMS__ containing the message and error code via __Twilio__. 
 
 
