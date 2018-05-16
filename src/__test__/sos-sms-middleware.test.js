@@ -17,11 +17,12 @@ describe('testing sms sos middleware', () => {
     let userID = null;
     return pCreateAccountMock()
       .then((response) => {
-        console.log(response.account, 'this is the response.account of the createAccountMock');
+        // console.log(response.account, 'this is the response.account of the createAccountMock');
         userID = response.account._id;
-        console.log(userID, 'this is the userid');
+        // console.log(userID, 'this is the userid');
         return sossms('400', userID, 'its your problem yo')
           .then((res) => {
+            // console.log(res, 'WHATS RESPONSE IN SUCCESS BLOCK')
             expect(res.status).toEqual(200);
           })
           .catch((err) => {

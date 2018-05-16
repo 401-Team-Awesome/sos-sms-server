@@ -30,6 +30,10 @@ var _account = require('../model/account');
 
 var _account2 = _interopRequireDefault(_account);
 
+var _bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
+
+var _bearerAuthMiddleware2 = _interopRequireDefault(_bearerAuthMiddleware);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -40,15 +44,15 @@ var messageRouter = new _express.Router();
 
 messageRouter.post('/api/messages/:id', jsonParser, function (request, response, next) {
   _logger2.default.log(_logger2.default.INFO, 'MESSAGE-ROUTER POST: processing a request');
-  console.log(request.body, 'this is the body');
+  // console.log(request.body, 'this is the body');
   if (!request.body.error) {
     _logger2.default.log(_logger2.default.INFO, 'MESSAGE-ROUTER POST: Error message required.');
     return next(new _httpErrors2.default(400, 'Error message required.'));
   }
   return _account2.default.findById(request.params.id).then(function (account) {
-    console.log(request.body, 'request body in findbyid return');
-    console.log(account, 'this is the account');
-    console.log(account.userPhoneNumber);
+    // console.log(request.body, 'request body in findbyid return');
+    // console.log(account, 'this is the account');
+    // console.log(account.userPhoneNumber, 'THE PHONE NUMBER');
     return new _message2.default({
       userPhoneNumber: account.userPhoneNumber,
       account: account._id,
@@ -66,10 +70,9 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
         console.log(twilioMessage.sid, 'this is the message.sid');
       }).done();
     }).catch(function (err) {
-      console.log(err, 'this is the err in the catch');
+      // console.log(err, 'this is the err in the catch');
     });
   }).then(function (anything) {
-    console.log('anything', anything);
     console.log('message sent via twilio');
     return response.json(anything);
   }).catch(next);
