@@ -29,9 +29,10 @@ var jsonParser = _bodyParser2.default.json();
 var accountRouter = new _express.Router();
 
 accountRouter.post('/api/accounts', jsonParser, function (request, response, next) {
-  if (!request.body.userID || !request.body.userPhoneNumber) {
-    return next(new _httpErrors2.default(400, 'userID and userPhoneNumber are required!'));
-  }
+  console.log('inside router');
+  // if (!request.body.username || !request.body.userPhoneNumber) {
+  //   return next(new HttpErrors(400, 'userID and userPhoneNumber are required!'));
+  // }
   return new _account2.default(request.body).save().then(function (account) {
     _logger2.default.log(_logger2.default.INFO, 'ROUTER POST: 200');
     return response.json(account);

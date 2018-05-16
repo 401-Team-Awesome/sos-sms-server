@@ -11,6 +11,11 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var accountSchema = _mongoose2.default.Schema({
+  // username: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
   userPhoneNumber: {
     type: String,
     required: true

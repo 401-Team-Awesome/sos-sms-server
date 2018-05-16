@@ -11,6 +11,7 @@ var _superagent2 = _interopRequireDefault(_superagent);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var apiURL = 'http://localhost:' + process.env.PORT;
+// const apiURL = 'https://sos-sms.herokuapp.com/';
 
 exports.default = function (error, userID, message) {
   console.log(apiURL + '/api/messages/' + userID, 'url in sossms middleware');

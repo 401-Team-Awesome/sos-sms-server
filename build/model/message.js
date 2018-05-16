@@ -21,31 +21,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // eslint-disable-line
 
 var messageSchema = _mongoose2.default.Schema({
-  user: {
-    type: String,
-    // required: true,
-    unique: true
-  },
-  phoneNumber: {
+  // user: {
+  //   type: String,
+  //   // required: true,
+  //   unique: true,
+  // },
+  userphoneNumber: {
     type: String
   },
-  error: {
-    type: Number,
-    required: true
-  },
-  errorLocation: {
-    type: String
-  },
-  message: {
-    type: String
-  },
-  response: {
-    type: String
-  },
+  // error: {
+  //   type: Number,
+  //   required: true,
+  // },
+  // errorLocation: {
+  //   type: String,
+  // },
+  // message: {
+  //   type: String,
+  // },
+  // response: {
+  //   type: String,
+  // },
   account: {
-    type: _mongoose2.default.Schema.Types.ObjectId,
+    type: _mongoose2.default.Schema.ObjectId,
     required: true,
-    ref: 'account'
+    unique: true
   },
   timeStamp: {
     type: Date,

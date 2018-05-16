@@ -25,12 +25,17 @@ var _messageRouter = require('../routes/message-router');
 
 var _messageRouter2 = _interopRequireDefault(_messageRouter);
 
+var _accountRouter = require('../routes/account-router');
+
+var _accountRouter2 = _interopRequireDefault(_accountRouter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
 var server = null;
 
 app.use(_messageRouter2.default);
+app.use(_accountRouter2.default);
 
 app.all('*', function (request, response) {
   _logger2.default.log(_logger2.default.INFO, 'Returning a 404 from the catch-all/default route');
