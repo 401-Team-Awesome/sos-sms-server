@@ -55,6 +55,8 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
       error: request.body.error,
       message: request.body.message
     }).save().then(function (message) {
+      console.log(request.body.error, request.body.message, 'error and message');
+      console.log(message.userPhoneNumber, 'this is the phoneNumber from the message model');
       client.messages.create({
         body: request.body.error + ': ' + request.body.message,
         from: process.env.TWILIO_NUMBER,
