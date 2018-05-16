@@ -7,6 +7,7 @@ import Twilio from 'twilio';
 import logger from '../lib/logger';
 import Message from '../model/message';
 import Account from '../model/account';
+import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
 // const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -16,16 +17,16 @@ const messageRouter = new Router();
 
 messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) => {
   logger.log(logger.INFO, 'MESSAGE-ROUTER POST: processing a request');
-  console.log(request.body, 'this is the body');
+  // console.log(request.body, 'this is the body');
   if (!request.body.error) {
     logger.log(logger.INFO, 'MESSAGE-ROUTER POST: Error message required.');
     return next(new HttpErrors(400, 'Error message required.'));
   }
   return Account.findById(request.params.id)
     .then((account) => {
-      console.log(request.body, 'request body in findbyid return');
-      console.log(account, 'this is the account');
-      console.log(account.userPhoneNumber);
+      // console.log(request.body, 'request body in findbyid return');
+      // console.log(account, 'this is the account');
+      // console.log(account.userPhoneNumber, 'THE PHONE NUMBER');
       return new Message({
         userPhoneNumber: account.userPhoneNumber,
         account: account._id,
@@ -49,11 +50,10 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
             .done();
         })
         .catch((err) => {
-          console.log(err, 'this is the err in the catch');
+          // console.log(err, 'this is the err in the catch');
         });
     })
     .then((anything) => {
-      console.log('anything', anything);
       console.log('message sent via twilio');
       return response.json(anything);
     })
