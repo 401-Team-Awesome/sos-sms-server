@@ -43,7 +43,7 @@ var messageSchema = _mongoose2.default.Schema({
   //   type: String,
   // },
   account: {
-    type: _mongoose2.default.Schema.ObjectId,
+    type: _mongoose2.default.Schema.Types.ObjectId,
     required: true
     // unique: true,
   },
