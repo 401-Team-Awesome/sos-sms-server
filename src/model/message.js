@@ -26,10 +26,10 @@ const messageSchema = mongoose.Schema({
   // response: {
   //   type: String,
   // },
-  account: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
+  // account: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: true,
+  // },
   timeStamp: {
     type: Date,
     default: () => new Date(), 
