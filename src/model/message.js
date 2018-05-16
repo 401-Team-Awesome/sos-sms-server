@@ -10,7 +10,7 @@ const messageSchema = mongoose.Schema({
   //   // required: true,
   //   unique: true,
   // },
-  userphoneNumber: {
+  userPhoneNumber: {
     type: String,
   },
   error: {

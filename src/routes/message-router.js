@@ -33,16 +33,16 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
         message: request.body.message,
       })
         .save()
-        .then(() => {
+        .then((message) => {
           client.messages
             .create({
               body: `${request.body.error}: ${request.body.message}`,
               from: process.env.TWILIO_NUMBER,
-              to: account.userPhoneNumber,
+              to: message.userPhoneNumber,
             })
-            .then((message) => {
+            .then((twilioMessage) => {
               console.log('hi');
-              console.log(message.sid, 'this is the message.sid');
+              console.log(twilioMessage.sid, 'this is the message.sid');
             })
             .done();
         })
