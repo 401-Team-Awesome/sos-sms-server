@@ -29,7 +29,7 @@ describe('testing sms sos middleware', function () {
   //       console.log(response, 'this is the response of the createAccountMock');
   //       userID = response._id;
   //       console.log(userID, 'this is the userid');
-  //       return sossms('400', userID, 'its your problem bro')
+  //       return sossms('400', userID, 'its your problem yo')
   //         .then((res) => {
   //           expect(res.status).toEqual(200);
   //         })
@@ -39,11 +39,12 @@ describe('testing sms sos middleware', function () {
   //     });
   // });
   test('should post message to deployed db and send a request to our api', function () {
-    var userID = '5afc6d66c584ab001ae44b21';
+    var userID = '5afc756cd3fbe3001a1e8180';
     return (0, _sosSmsMiddleware2.default)('400', userID, 'testing deployed again').then(function (res) {
       expect(res.status).toEqual(200);
+      console.log('INSIDE OF TEST POST !!!!!');
     }).catch(function (err) {
       console.log('start of error', err, 'end of error');
     });
   });
-});
+}); // eslint-disable-line
