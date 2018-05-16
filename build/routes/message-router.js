@@ -54,14 +54,14 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
       account: account._id,
       error: request.body.error,
       message: request.body.message
-    }).save().then(function () {
+    }).save().then(function (message) {
       client.messages.create({
         body: request.body.error + ': ' + request.body.message,
         from: process.env.TWILIO_NUMBER,
-        to: account.userPhoneNumber
-      }).then(function (message) {
+        to: message.userPhoneNumber
+      }).then(function (twilioMessage) {
         console.log('hi');
-        console.log(message.sid, 'this is the message.sid');
+        console.log(twilioMessage.sid, 'this is the message.sid');
       }).done();
     }).catch(function (err) {
       console.log(err, 'this is the err in the catch');

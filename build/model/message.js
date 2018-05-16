@@ -26,7 +26,7 @@ var messageSchema = _mongoose2.default.Schema({
   //   // required: true,
   //   unique: true,
   // },
-  userphoneNumber: {
+  userPhoneNumber: {
     type: String
   },
   error: {
