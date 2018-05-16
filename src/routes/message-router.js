@@ -34,6 +34,8 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
       })
         .save()
         .then((message) => {
+          console.log(request.body.error, request.body.message, 'error and message');
+          console.log(message.userPhoneNumber, 'this is the phoneNumber from the message model');
           client.messages
             .create({
               body: `${request.body.error}: ${request.body.message}`,

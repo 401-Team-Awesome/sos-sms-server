@@ -27,7 +27,7 @@ const messageSchema = mongoose.Schema({
   //   type: String,
   // },
   account: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     // unique: true,
   },
