@@ -22,6 +22,10 @@ var _logger = require('../lib/logger');
 
 var _logger2 = _interopRequireDefault(_logger);
 
+var _message = require('../model/message');
+
+var _message2 = _interopRequireDefault(_message);
+
 var _account = require('../model/account');
 
 var _account2 = _interopRequireDefault(_account);
@@ -30,8 +34,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 var client = new _twilio2.default(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-// import Message from '../model/message';
-
 
 var jsonParser = _bodyParser2.default.json();
 var messageRouter = new _express.Router();
@@ -47,14 +49,19 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
     console.log(request.params.id, 'params id in findbyid return');
     console.log(account, 'this is the account');
     console.log(account.userPhoneNumber);
-    client.messages.create({
-      body: request.body.error + ': ' + request.body.message,
-      from: process.env.TWILIO_NUMBER,
-      to: account.userPhoneNumber
-    }).then(function (message) {
-      console.log('hi');
-      console.log(message.sid, 'this is the message.sid');
-    }).done();
+    return new _message2.default({
+      userPhoneNumber: account.userPhoneNumber,
+      account: account._id
+    }).save().then(function () {
+      client.messages.create({
+        body: request.body.error + ': ' + request.body.message,
+        from: process.env.TWILIO_NUMBER,
+        to: account.userPhoneNumber
+      }).then(function (message) {
+        console.log('hi');
+        console.log(message.sid, 'this is the message.sid');
+      }).done();
+    });
   }).then(console.log('message sent via twilio')).catch(next);
 });
 
