@@ -29,23 +29,23 @@ var messageSchema = _mongoose2.default.Schema({
   userphoneNumber: {
     type: String
   },
-  // error: {
-  //   type: Number,
-  //   required: true,
-  // },
+  error: {
+    type: String
+    // required: true,
+  },
   // errorLocation: {
   //   type: String,
   // },
-  // message: {
-  //   type: String,
-  // },
+  message: {
+    type: String
+  },
   // response: {
   //   type: String,
   // },
   account: {
     type: _mongoose2.default.Schema.ObjectId,
-    required: true,
-    unique: true
+    required: true
+    // unique: true,
   },
   timeStamp: {
     type: Date,

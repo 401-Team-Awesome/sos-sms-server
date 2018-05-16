@@ -46,12 +46,14 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
     return next(new _httpErrors2.default(400, 'Error message required.'));
   }
   return _account2.default.findById(request.params.id).then(function (account) {
-    console.log(request.params.id, 'params id in findbyid return');
+    console.log(request.body, 'request body in findbyid return');
     console.log(account, 'this is the account');
     console.log(account.userPhoneNumber);
     return new _message2.default({
       userPhoneNumber: account.userPhoneNumber,
-      account: account._id
+      account: account._id,
+      error: request.body.error,
+      message: request.body.message
     }).save().then(function () {
       client.messages.create({
         body: request.body.error + ': ' + request.body.message,
@@ -61,6 +63,8 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
         console.log('hi');
         console.log(message.sid, 'this is the message.sid');
       }).done();
+    }).catch(function (err) {
+      console.log(err, 'this is the err in the catch');
     });
   }).then(console.log('message sent via twilio')).catch(next);
 });

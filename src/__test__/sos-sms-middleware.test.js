@@ -20,9 +20,12 @@ describe('testing sms sos middleware', () => {
         console.log(response, 'this is the response of the createAccountMock');
         userID = response._id;
         console.log(userID, 'this is the userid');
-        sossms('400', userID, 'its your problem bro')
+        return sossms('400', userID, 'its your problem bro')
           .then((res) => {
             expect(res.status).toEqual(200);
+          })
+          .catch((err) => {
+            console.log(err);
           });
       });
   });

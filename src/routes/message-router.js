@@ -23,26 +23,31 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
   }
   return Account.findById(request.params.id)
     .then((account) => {
-      console.log(request.params.id, 'params id in findbyid return');
+      console.log(request.body, 'request body in findbyid return');
       console.log(account, 'this is the account');
       console.log(account.userPhoneNumber);
       return new Message({
         userPhoneNumber: account.userPhoneNumber,
         account: account._id,
+        error: request.body.error,
+        message: request.body.message,
       })
         .save()
-        .then(() => {
+        .then((message) => {
           client.messages
             .create({
               body: `${request.body.error}: ${request.body.message}`,
               from: process.env.TWILIO_NUMBER,
-              to: account.userPhoneNumber,
+              to: message.userPhoneNumber,
             })
-            .then((message) => {
+            .then((twilioMessage) => {
               console.log('hi');
-              console.log(message.sid, 'this is the message.sid');
+              console.log(twilioMessage.sid, 'this is the message.sid');
             })
             .done();
+        })
+        .catch((err) => {
+          console.log(err, 'this is the err in the catch');
         });
     })
     .then(console.log('message sent via twilio'))
