@@ -45,7 +45,6 @@ var messageSchema = _mongoose2.default.Schema({
   account: {
     type: _mongoose2.default.Schema.Types.ObjectId,
     required: true
-    // unique: true,
   },
   timeStamp: {
     type: Date,
