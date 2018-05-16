@@ -7,6 +7,7 @@ import Twilio from 'twilio';
 import logger from '../lib/logger';
 import Message from '../model/message';
 import Account from '../model/account';
+import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
 // const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -25,7 +26,7 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
     .then((account) => {
       console.log(request.body, 'request body in findbyid return');
       console.log(account, 'this is the account');
-      console.log(account.userPhoneNumber);
+      console.log(account.userPhoneNumber, 'THE PHONE NUMBER');
       return new Message({
         userPhoneNumber: account.userPhoneNumber,
         account: account._id,
@@ -52,10 +53,9 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
           console.log(err, 'this is the err in the catch');
         });
     })
-    .then((anything) => {
-      console.log('anything', anything);
-      console.log('message sent via twilio');
-      return response.json(anything);
+    .then(() => {
+      console.log('message MAYBE sent via twilio');
+      return response;
     })
     .catch(next);
 });

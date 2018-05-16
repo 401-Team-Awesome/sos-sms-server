@@ -13,31 +13,31 @@ describe('testing sms sos middleware', () => {
   afterAll(stopServer);
   afterEach(pRemoveAccountMock);
 
-  // test('should send a request to our api', () => {
-  //   let userID = null;
-  //   return pCreateAccountMock()
-  //     .then((response) => {
-  //       console.log(response, 'this is the response of the createAccountMock');
-  //       userID = response._id;
-  //       console.log(userID, 'this is the userid');
-  //       return sossms('400', userID, 'its your problem yo')
-  //         .then((res) => {
-  //           expect(res.status).toEqual(200);
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  //     });
-  // });
-  test('should post message to deployed db and send a request to our api', () => {
-    const userID = '5afc756cd3fbe3001a1e8180';
-    return sossms('400', userID, 'testing deployed again')
-      .then((res) => {
-        expect(res.status).toEqual(200);
-        console.log('INSIDE OF TEST POST !!!!!');
-      })
-      .catch((err) => {
-        console.log('start of error', err, 'end of error');
+  test('should send a request to our api', () => {
+    let userID = null;
+    return pCreateAccountMock()
+      .then((response) => {
+        console.log(response.account, 'this is the response.account of the createAccountMock');
+        userID = response.account._id;
+        console.log(userID, 'this is the userid');
+        return sossms('400', userID, 'its your problem yo')
+          .then((res) => {
+            expect(res.status).toEqual(200);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
   });
+  // test('should post message to deployed db and send a request to our api', () => {
+  //   const userID = '5afc756cd3fbe3001a1e8180';
+  //   return sossms('400', userID, 'testing deployed again')
+  //     .then((res) => {
+  //       expect(res.status).toEqual(200);
+  //       console.log('INSIDE OF TEST POST !!!!!');
+  //     })
+  //     .catch((err) => {
+  //       console.log('start of error', err, 'end of error');
+  //     });
+  // });
 });
