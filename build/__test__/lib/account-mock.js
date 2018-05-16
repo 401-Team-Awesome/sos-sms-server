@@ -21,7 +21,8 @@ var pCreateAccountMock = function pCreateAccountMock() {
     // userPhoneNumber: '123456',
     userPhoneNumber: process.env.PHONE_NUMBER
   }).save();
-};
+}; // eslint-disable-line
+
 
 var pRemoveAccountMock = function pRemoveAccountMock() {
   return _account2.default.remove({});
