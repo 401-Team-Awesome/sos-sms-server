@@ -51,7 +51,7 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
     console.log(account.userPhoneNumber);
     return new _message2.default({
       userPhoneNumber: account.userPhoneNumber,
-      // account: account._id,
+      account: account._id,
       error: request.body.error,
       message: request.body.message
     }).save().then(function (message) {

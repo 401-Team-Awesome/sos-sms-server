@@ -42,10 +42,10 @@ var messageSchema = _mongoose2.default.Schema({
   // response: {
   //   type: String,
   // },
-  // account: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: true,
-  // },
+  account: {
+    type: _mongoose2.default.Schema.Types.ObjectId,
+    required: true
+  },
   timeStamp: {
     type: Date,
     default: function _default() {
