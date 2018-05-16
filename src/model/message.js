@@ -5,31 +5,31 @@ import HttpError from 'http-errors';
 import Account from '../model/account'; // eslint-disable-line
 
 const messageSchema = mongoose.Schema({
-  user: {
-    type: String,
-    // required: true,
-    unique: true,
-  },
-  phoneNumber: {
-    type: String,
-  },
-  error: {
-    type: Number,
-    required: true,
-  },
-  errorLocation: {
+  // user: {
+  //   type: String,
+  //   // required: true,
+  //   unique: true,
+  // },
+  userphoneNumber: {
     type: String,
   },
-  message: {
-    type: String,
-  },
-  response: {
-    type: String,
-  },
+  // error: {
+  //   type: Number,
+  //   required: true,
+  // },
+  // errorLocation: {
+  //   type: String,
+  // },
+  // message: {
+  //   type: String,
+  // },
+  // response: {
+  //   type: String,
+  // },
   account: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     required: true,
-    ref: 'account',
+    unique: true,
   },
   timeStamp: {
     type: Date,

@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import HttpErrors from 'http-errors';
 import Twilio from 'twilio';
 import logger from '../lib/logger';
-// import Message from '../model/message';
+import Message from '../model/message';
 import Account from '../model/account';
 
 // const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -26,17 +26,24 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
       console.log(request.params.id, 'params id in findbyid return');
       console.log(account, 'this is the account');
       console.log(account.userPhoneNumber);
-      client.messages
-        .create({
-          body: `${request.body.error}: ${request.body.message}`,
-          from: process.env.TWILIO_NUMBER,
-          to: account.userPhoneNumber,
-        })
-        .then((message) => {
-          console.log('hi');
-          console.log(message.sid, 'this is the message.sid');
-        })
-        .done();
+      return new Message({
+        userPhoneNumber: account.userPhoneNumber,
+        account: account._id,
+      })
+        .save()
+        .then(() => {
+          client.messages
+            .create({
+              body: `${request.body.error}: ${request.body.message}`,
+              from: process.env.TWILIO_NUMBER,
+              to: account.userPhoneNumber,
+            })
+            .then((message) => {
+              console.log('hi');
+              console.log(message.sid, 'this is the message.sid');
+            })
+            .done();
+        });
     })
     .then(console.log('message sent via twilio'))
     .catch(next);
