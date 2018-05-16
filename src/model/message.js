@@ -29,7 +29,6 @@ const messageSchema = mongoose.Schema({
   account: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    // unique: true,
   },
   timeStamp: {
     type: Date,

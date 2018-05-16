@@ -30,8 +30,8 @@ describe('testing sms sos middleware', () => {
   //     });
   // });
   test('should post message to deployed db and send a request to our api', () => {
-    const userID = '5afb7b8abd90e3001a22d56e';
-    return sossms('400', userID, 'its your problem bro')
+    const userID = '5afc6d66c584ab001ae44b21';
+    return sossms('400', userID, 'testing deployed again')
       .then((res) => {
         expect(res.status).toEqual(200);
       })

@@ -39,8 +39,8 @@ describe('testing sms sos middleware', function () {
   //     });
   // });
   test('should post message to deployed db and send a request to our api', function () {
-    var userID = '5afb7b8abd90e3001a22d56e';
-    return (0, _sosSmsMiddleware2.default)('400', userID, 'its your problem bro').then(function (res) {
+    var userID = '5afc6d66c584ab001ae44b21';
+    return (0, _sosSmsMiddleware2.default)('400', userID, 'testing deployed again').then(function (res) {
       expect(res.status).toEqual(200);
     }).catch(function (err) {
       console.log('start of error', err, 'end of error');
