@@ -5,7 +5,7 @@ This application allows a user to easily send at text message containing  an err
 A __Twilio account__ is required to utilize the sossms  sms messaging capability.  The user must provide a twilio phone number, where the error message will be texted from and also input a phone number that the error message will be texted to.
 
 
-# Create an Account
+# Create an Account 
 
 In order to use our npm package, the user must first have an __account id__ to reference and pass in to the function provided in the package 
 
