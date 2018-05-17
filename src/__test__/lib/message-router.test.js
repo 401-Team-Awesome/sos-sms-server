@@ -56,7 +56,7 @@ describe('testing sms sos middleware', () => {
       });
   });
   test('POST should return a 409 status code, no duplicates', () => {
-    return superagent.post(`${apiURL}/signup`)
+    return superagent.post(`${apiURL}/api/signup`)
       .send({
         username: 'billie',
         email: 'billie@billie.com',

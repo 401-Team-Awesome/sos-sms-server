@@ -29,6 +29,7 @@ const pCreateAccountMock = () => {
     email: faker.internet.email(),
     password: faker.lorem.words(5),
     userPhoneNumber: process.env.PHONE_NUMBER,
+    // userPhoneNumber: `+${faker.random.number({ min: 10000000000, max: 99999999999 })}`,
   }; 
   return Account.create(mock.request.username, mock.request.email, mock.request.password, mock.request.userPhoneNumber) 
     .then((account) => {
