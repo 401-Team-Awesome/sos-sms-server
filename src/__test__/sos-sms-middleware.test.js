@@ -22,7 +22,7 @@ describe('testing sms sos middleware', () => {
     return pCreateAccountMock()
       .then((response) => {
         console.log(response, 'this is the response of the createAccountMock');
-        userID = response._id;
+        userID = response.account._id;
         console.log(userID, 'this is the userid');
         return sossms('400', userID, 'its your problem yo')
           .then((res) => {
