@@ -27,17 +27,24 @@ const accountRouter = new Router();
 // ------------------------old post route------------------------
 
 accountRouter.post('/api/signup', jsonParser, (request, response, next) => {
+  let userId = null;
   console.log('in signup route', request.body);
   return Account.create(request.body.username, request.body.email, request.body.password, request.body.userPhoneNumber)
     .then((account) => {
       console.log('we got the account', account);
       delete request.body.password;
+      userId = account._id;
       logger.log(logger.INFO, 'AUTH - creating TOKEN');
       return account.pCreateToken();
     })
     .then((token) => {
       logger.log(logger.INFO, 'AUTH - returning a 200 code and a token');
-      return response.json({ token });
+      // response.body.id = userId;
+      // return response.json({ token });
+      return response.json({
+        token: token,
+        _id: userId,
+      });
     })
     .catch(next);
 });
