@@ -1,15 +1,20 @@
 {
   "config": {
-    "target": "https://sarasaurus.herokuapp.com/",
+    "target": "https://sos-sms.herokuapp.com/api",
     "phases": [
       {
-       "duration": 2,
-       "arrivalRate": 10
+       "duration": 60,
+       "arrivalRate": 5
       },
       {
-        "duration": 20,
-        "arrivalRate": 10
-      }
+        "duration": 120,
+        "arrivalRate": 5,
+        "rampTo": 50
+       },
+       {
+        "duration": 30,
+        "arrivalRate": 100
+       }
     ],
     "processor" : "./load-test-create-user.js"
   },
@@ -26,25 +31,12 @@
             "json": {
               "username": "{{ username }}",
               "email": "{{ email }}",
-              "password": "{{ password }}"
+              "password": "{{ password }}",
+              "userPhoneNumber": "{{ userPhoneNumber }}"
             },
             "capture": {
-              "json": "$.token",
-              "as": "token"
-            }
-          }
-        }
-        ,{
-          "post": {
-            "url": "/profiles",
-            "headers": {
-              "Authorization": "Bearer {{ token }}"
-            },
-            "json": {
-              "bio": "{{ bio }}",
-              "avatar": "{{ avatar }}",
-              "firstName": "{{ firstName }}",
-              "lastName": "{{ lastName }}"
+              "json": "$._id",
+              "as": "id"
             }
           }
         }
