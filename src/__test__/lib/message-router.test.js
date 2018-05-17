@@ -24,7 +24,7 @@ describe('testing sms sos middleware', () => {
     return pCreateAccountMock()
       .then((response) => {
         userID = response._id;
-        return sossms('400', userID, 'its your problem yo')
+        return sossms('400', userID, 'You are the responsbile developer for this error.')
           .then((res) => {
             expect(res.status).toEqual(200);
           })
