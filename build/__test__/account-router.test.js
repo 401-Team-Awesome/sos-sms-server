@@ -57,7 +57,7 @@ describe('ACCOUNT Router', function () {
   });
   test('GET /login', function () {
     return (0, _accountMock.pCreateAccountMock)().then(function (mock) {
-      return _superagent2.default.get(apiURL + '/login').auth(mock.request.username, mock.request.password); // this is IMPORTANT, .auth is a superagent method to send usernames and passwords
+      return _superagent2.default.get(apiURL + '/login').auth(mock.request.username, mock.request.password);
     }).then(function (response) {
       expect(response.status).toEqual(200);
       expect(response.body.token).toBeTruthy();

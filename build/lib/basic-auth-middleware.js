@@ -17,7 +17,6 @@ var _account2 = _interopRequireDefault(_account);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (request, response, next) {
-
   if (!request.headers.authorization) {
     return next(new _httpErrors2.default(400, 'AUTH BASIC - no header invalid request!'));
   }

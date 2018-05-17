@@ -21,19 +21,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // eslint-disable-line
 
 var messageSchema = _mongoose2.default.Schema({
-
   userPhoneNumber: {
     type: String
   },
   error: {
     type: String
-
   },
-
   message: {
     type: String
   },
-
   account: {
     type: _mongoose2.default.Schema.Types.ObjectId,
     required: true
