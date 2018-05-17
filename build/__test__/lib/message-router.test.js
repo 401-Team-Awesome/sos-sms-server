@@ -14,6 +14,8 @@ var _sosSmsMiddleware = require('../../lib/sos-sms-middleware');
 
 var _sosSmsMiddleware2 = _interopRequireDefault(_sosSmsMiddleware);
 
+var _messageMock = require('../lib/message-mock');
+
 var _accountMock = require('../lib/account-mock');
 
 var _logger = require('../../lib/logger');
@@ -22,7 +24,9 @@ var _logger2 = _interopRequireDefault(_logger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// eslint-disable-line
 var apiURL = 'http://localhost:' + process.env.PORT; // eslint-disable-line
+// eslint-disable-line
 
 
 describe('testing sms sos middleware', function () {
@@ -72,6 +76,41 @@ describe('testing sms sos middleware', function () {
         password: 'nobirdieisthebest'
       }).then(Promise.reject).catch(function (err) {
         expect(err.status).toEqual(409);
+      });
+    });
+  });
+  test('GET /api/messages/:id should get a 200 status code and a TOKEN', function () {
+    return (0, _messageMock.pCreateMessageMock)().then(function (mock) {
+      return _superagent2.default.get(apiURL + '/api/messages/' + mock.message._id).set('Authorization', 'Bearer ' + mock.accountMock.token);
+    }).then(function (response) {
+      console.log('LOOKING FOR RESPONSE', response.body);
+      expect(response.status).toEqual(200);
+      expect(response.body.token).toBeTruthy();
+    }).catch(function () {
+      console.log('catching error when 200 status expected for get message route');
+    });
+  });
+  // test('GET /api/messages/:id should return a 400 status code for a route not found', () => {
+  //   return superagent.get(`${apiURL}/api/messages/invalidID`)
+  //     .send({
+  //       userID: 'baduserID',
+  //     })
+  //     .then(Promise.reject)
+  //     .catch((err) => {
+  //       expect(err.status).toEqual(400);
+  //     });
+  // });
+  test('GET /api/messages/:id should return 404 status when invalid id is sent', function () {
+    return (0, _messageMock.pCreateMessageMock)().then(function (accountSetMock) {
+      return _superagent2.default.get(apiURL + '/api/messages/invalidID').set('Authorization', 'Bearer ' + accountSetMock.accountMock.token);
+    }).then(Promise.reject).catch(function (err) {
+      expect(err.status).toEqual(404);
+    });
+  });
+  test('GET /api/messages/:id shoudl return 401 status if token in invalid', function () {
+    return (0, _messageMock.pCreateMessageMock)().then(function () {
+      return _superagent2.default.get(apiURL + '/api/messages/:id').set('Authorization', 'Bearer').then(Promise.reject).catch(function (err) {
+        expect(err.status).toEqual(401);
       });
     });
   });

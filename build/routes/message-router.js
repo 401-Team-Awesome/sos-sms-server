@@ -70,11 +70,19 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
         console.log(twilioMessage.sid, 'this is the message.sid');
       }).done();
     }).catch(function (err) {
-      // console.log(err, 'this is the err in the catch');
+      console.log(err, 'this is the err in the catch');
     });
   }).then(function (messageResponse) {
     console.log('message sent via twilio');
     return response.json(messageResponse);
+  }).catch(next);
+});
+
+messageRouter.get('/api/messages/:id', _bearerAuthMiddleware2.default, function (request, response, next) {
+  return _message2.default.findById(request.params.id).then(function (message) {
+    _logger2.default.log(_logger2.default.INFO, 'MESSAGE ROUTER: responding with a 200 status code');
+    _logger2.default.log(_logger2.default.INFO, 'MESSAGE ROUTER: ' + JSON.stringify(message));
+    return response.json(message);
   }).catch(next);
 });
 

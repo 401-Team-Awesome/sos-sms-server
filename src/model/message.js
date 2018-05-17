@@ -1,7 +1,7 @@
 'use strict';
 
 import mongoose from 'mongoose';
-import HttpError from 'http-errors';
+import HttpError from 'http-errors'; // eslint-disable-line
 import Account from '../model/account'; // eslint-disable-line
 
 const messageSchema = mongoose.Schema({

@@ -50,12 +50,22 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
             .done();
         })
         .catch((err) => {
-          // console.log(err, 'this is the err in the catch');
+          console.log(err, 'this is the err in the catch');
         });
     })
     .then((messageResponse) => {
       console.log('message sent via twilio');
       return response.json(messageResponse);
+    })
+    .catch(next);
+});
+
+messageRouter.get('/api/messages/:id', bearerAuthMiddleware, (request, response, next) => {
+  return Message.findById(request.params.id)
+    .then((message) => {
+      logger.log(logger.INFO, 'MESSAGE ROUTER: responding with a 200 status code');
+      logger.log(logger.INFO, `MESSAGE ROUTER: ${JSON.stringify(message)}`);
+      return response.json(message);
     })
     .catch(next);
 });
