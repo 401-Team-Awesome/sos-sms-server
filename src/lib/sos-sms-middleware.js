@@ -6,7 +6,6 @@ import superagent from 'superagent';
 const apiURL = 'https://sos-sms.herokuapp.com';
 
 export default (error, userID, message) => {
-  console.log(`${apiURL}/api/messages/${userID}`, 'url in sossms middleware');
   return superagent.post(`${apiURL}/api/messages/${userID}`)
     .send({ error, message })
     .then((data) => {
