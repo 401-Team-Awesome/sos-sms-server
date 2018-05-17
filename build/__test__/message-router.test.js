@@ -29,14 +29,14 @@ describe('testing sms sos middleware', function () {
   afterAll(_server.stopServer);
   afterEach(_accountMock.pRemoveAccountMock);
 
-  test('should send a request to our api', function () {
+  test('POST: should send a text message via twilio', function () {
     var userID = null;
     return (0, _accountMock.pCreateAccountMock)().then(function (response) {
-      userID = response._id;
+      userID = response.account._id;
       return (0, _sosSmsMiddleware2.default)('400', userID, 'You are the responsible developer for this error.').then(function (res) {
         expect(res.status).toEqual(200);
       }).catch(function (err) {
-        console.log(err);
+        return console.log(err);
       });
     });
   });
