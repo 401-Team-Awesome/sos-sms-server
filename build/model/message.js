@@ -44,6 +44,5 @@ var messageSchema = _mongoose2.default.Schema({
       return new Date();
     }
   }
-});
-
+}); // eslint-disable-line
 exports.default = _mongoose2.default.model('message', messageSchema);

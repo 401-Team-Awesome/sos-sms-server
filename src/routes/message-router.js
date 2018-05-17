@@ -63,10 +63,6 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
 messageRouter.get('/api/messages/:id', bearerAuthMiddleware, (request, response, next) => {
   return Message.findById(request.params.id)
     .then((message) => {
-      if (!message) {
-        logger.log(logger.ERROR, 'MESSAGE ROUTER: responding with a 404 status code for !messages');
-        // return next(new HttpErrors(404, 'message not found'));
-      }
       logger.log(logger.INFO, 'MESSAGE ROUTER: responding with a 200 status code');
       logger.log(logger.INFO, `MESSAGE ROUTER: ${JSON.stringify(message)}`);
       return response.json(message);
