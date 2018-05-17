@@ -17,16 +17,12 @@ const messageRouter = new Router();
 
 messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) => {
   logger.log(logger.INFO, 'MESSAGE-ROUTER POST: processing a request');
-  // console.log(request.body, 'this is the body');
   if (!request.body.error) {
     logger.log(logger.INFO, 'MESSAGE-ROUTER POST: Error message required.');
     return next(new HttpErrors(400, 'Error message required.'));
   }
   return Account.findById(request.params.id)
     .then((account) => {
-      // console.log(request.body, 'request body in findbyid return');
-      // console.log(account, 'this is the account');
-      // console.log(account.userPhoneNumber, 'THE PHONE NUMBER');
       return new Message({
         userPhoneNumber: account.userPhoneNumber,
         account: account._id,
@@ -35,26 +31,21 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
       })
         .save()
         .then((message) => {
-          console.log(request.body.error, request.body.message, 'error and message');
-          console.log(message.userPhoneNumber, 'this is the phoneNumber from the message model');
           client.messages
             .create({
               body: `${request.body.error}: ${request.body.message}`,
               from: process.env.TWILIO_NUMBER,
               to: message.userPhoneNumber,
             })
-            .then((twilioMessage) => {
-              console.log('hi');
-              console.log(twilioMessage.sid, 'this is the message.sid');
+            .then(() => {
             })
             .done();
         })
         .catch((err) => {
-          console.log(err, 'this is the err in the catch');
+          console.log(err);
         });
     })
     .then((messageResponse) => {
-      console.log('message sent via twilio');
       return response.json(messageResponse);
     })
     .catch(next);

@@ -40,7 +40,7 @@ describe('testing sms sos middleware', function () {
     var userID = null;
     return (0, _accountMock.pCreateAccountMock)().then(function (response) {
       userID = response._id;
-      return (0, _sosSmsMiddleware2.default)('400', userID, 'its your problem yo').then(function (res) {
+      return (0, _sosSmsMiddleware2.default)('400', userID, 'You are the responsbile developer for this error.').then(function (res) {
         expect(res.status).toEqual(200);
       }).catch(function (err) {
         console.log(err);
@@ -66,7 +66,6 @@ describe('testing sms sos middleware', function () {
       });
     });
   });
-
   test('GET /api/messages/:id should get a 200 status code and a TOKEN', function () {
     return (0, _messageMock.pCreateMessageMock)().then(function (mock) {
       return _superagent2.default.get(apiURL + '/api/messages/' + mock.message._id).set('Authorization', 'Bearer ' + mock.accountMock.token);
@@ -74,7 +73,7 @@ describe('testing sms sos middleware', function () {
       expect(response.status).toEqual(200);
       expect(response.body.token).toBeTruthy();
     }).catch(function () {
-      console.log('catching error when 200 status expected for get message route');
+      console.log('catching error when 200 status expected for Get Message route');
     });
   });
   test('GET /api/messages/:id should return 404 status when invalid id is sent', function () {
@@ -84,7 +83,7 @@ describe('testing sms sos middleware', function () {
       expect(err.status).toEqual(404);
     });
   });
-  test('GET /api/messages/:id shoudl return 401 status if token in invalid', function () {
+  test('GET /api/messages/:id shoudl return 401 status if token is invalid', function () {
     return (0, _messageMock.pCreateMessageMock)().then(function () {
       return _superagent2.default.get(apiURL + '/api/messages/:id').set('Authorization', 'Bearer').then(Promise.reject).catch(function (err) {
         expect(err.status).toEqual(401);

@@ -40,11 +40,6 @@ var accountSchema = _mongoose2.default.Schema({
     required: true,
     unique: true
   },
-  // password: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  // },
   passwordHash: {
     type: String,
     required: true
@@ -71,7 +66,6 @@ function pVerifyPassword(password) {
     return _this;
   });
 }
-
 function pCreateToken() {
   this.tokenSeed = _crypto2.default.randomBytes(TOKEN_SEED_LENGTH).toString('hex');
   return this.save().then(function (account) {

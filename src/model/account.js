@@ -23,11 +23,6 @@ const accountSchema = mongoose.Schema({
     required: true, 
     unique: true,
   },
-  // password: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  // },
   passwordHash: {
     type: String,
     required: true,
@@ -51,7 +46,6 @@ function pVerifyPassword(password) {
       return this;
     });
 }
-
 function pCreateToken() {
   this.tokenSeed = crypto.randomBytes(TOKEN_SEED_LENGTH).toString('hex');
   return this.save()
@@ -79,6 +73,5 @@ Account.create = (username, email, password, userPhoneNumber) => {
       }).save();
     });
 };
-
 
 export default Account;

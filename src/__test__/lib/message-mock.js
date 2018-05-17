@@ -5,15 +5,11 @@ import { pCreateAccountMock } from './account-mock';
 import Message from '../../model/message';
 import Account from '../../model/account';
 
-
-// Double check there are no 'sound' mocks. writing this following along in class.
-
 const pCreateMessageMock = () => {
   const resultMock = {};
   return pCreateAccountMock()
     .then((mockAcctResponse) => {
       resultMock.accountMock = mockAcctResponse;
-
       return new Message({
         account: resultMock.accountMock.account._id,
         message: faker.lorem.words(2),

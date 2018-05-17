@@ -63,7 +63,7 @@ describe('ACCOUNT Router', () => {
     return pCreateAccountMock()
       .then((mock) => {
         return superagent.get(`${apiURL}/login`)
-          .auth(mock.request.username, mock.request.password);// this is IMPORTANT, .auth is a superagent method to send usernames and passwords
+          .auth(mock.request.username, mock.request.password);
       })
       .then((response) => {
         expect(response.status).toEqual(200);

@@ -31,34 +31,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var jsonParser = _bodyParser2.default.json();
 
 var accountRouter = new _express.Router();
-// -------------------------old post route------------------------
-// accountRouter.post('/api/accounts', jsonParser, (request, response, next) => {
-//   console.log('inside router');
-//   // if (!request.body.username || !request.body.userPhoneNumber) {
-//   //   return next(new HttpErrors(400, 'userID and userPhoneNumber are required!'));
-//   // }
-//   return new Account(request.body).save()
-//     .then((account) => {
-//       logger.log(logger.INFO, 'ROUTER POST: 200');
-//       return response.json(account);
-//     })
-//     .catch(next);
-// });
-// ------------------------old post route------------------------
 
 accountRouter.post('/api/signup', jsonParser, function (request, response, next) {
   var userId = null;
-  console.log('in signup route', request.body);
-  return _account2.default.create(request.body.username, request.body.email, request.body.password, request.body.userPhoneNumber).then(function (account) {
-    console.log('we got the account', account);
+  return _account2.default.create(request.body.username, request.body.email, request.body.password, request.body.userPhoneNumber) // eslint-disable-line
+  .then(function (account) {
     delete request.body.password;
     userId = account._id;
     _logger2.default.log(_logger2.default.INFO, 'AUTH - creating TOKEN');
     return account.pCreateToken();
   }).then(function (token) {
     _logger2.default.log(_logger2.default.INFO, 'AUTH - returning a 200 code and a token');
-    // response.body.id = userId;
-    // return response.json({ token });
     return response.json({
       token: token,
       _id: userId

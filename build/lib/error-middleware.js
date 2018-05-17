@@ -10,7 +10,7 @@ var _logger2 = _interopRequireDefault(_logger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (error, request, response, next) {
+exports.default = function (error, request, response) {
   _logger2.default.log(_logger2.default.ERROR, '__ERROR_IN_MIDDLEWARE__');
   _logger2.default.log(_logger2.default.ERROR, error);
 
@@ -23,28 +23,23 @@ exports.default = function (error, request, response, next) {
 
   if (errorMessage.includes('objectid failed')) {
     _logger2.default.log(_logger2.default.INFO, 'Responding with a 404 code');
-    console.log(errorMessage, 'what happened');
     return response.sendStatus(404);
   }
 
   if (errorMessage.includes('validation failed')) {
     _logger2.default.log(_logger2.default.INFO, 'Responding with a 400 code');
-    console.log(errorMessage, 'what happened');
     return response.sendStatus(400);
   }
 
   if (errorMessage.includes('duplicate key')) {
     _logger2.default.log(_logger2.default.INFO, 'Responding with a 409 code');
-    console.log(errorMessage, 'what happened');
     return response.sendStatus(409);
   }
 
   if (errorMessage.includes('unauthorized')) {
-    console.log(errorMessage, 'what happened');
     _logger2.default.log(_logger2.default.INFO, 'Responding with a 401 code');
     return response.sendStatus(401);
   }
-  console.log(errorMessage, 'what happened');
   _logger2.default.log(_logger2.default.ERROR, 'Responding with a 500 error code');
   _logger2.default.log(_logger2.default.INFO, error);
   return response.sendStatus(500);
