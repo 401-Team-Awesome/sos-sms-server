@@ -22,6 +22,7 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
   }
   return Account.findById(request.params.id)
     .then((account) => {
+      console.log(account, 'this is the account');
       return new Message({
         userPhoneNumber: account.userPhoneNumber,
         account: account._id,
@@ -30,6 +31,7 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
       })
         .save()
         .then((message) => {
+          console.log(message, 'this is the message');
           client.messages
             .create({
               body: `${request.body.error}: ${request.body.message}`,

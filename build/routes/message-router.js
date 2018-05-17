@@ -48,12 +48,14 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
     return next(new _httpErrors2.default(400, 'Error message required.'));
   }
   return _account2.default.findById(request.params.id).then(function (account) {
+    console.log(account, 'this is the account');
     return new _message2.default({
       userPhoneNumber: account.userPhoneNumber,
       account: account._id,
       error: request.body.error,
       message: request.body.message
     }).save().then(function (message) {
+      console.log(message, 'this is the message');
       client.messages.create({
         body: request.body.error + ': ' + request.body.message,
         from: process.env.TWILIO_NUMBER,

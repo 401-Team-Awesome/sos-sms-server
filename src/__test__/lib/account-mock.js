@@ -29,7 +29,12 @@ const pCreateAccountMock = () => {
     password: faker.lorem.words(5),
     userPhoneNumber: process.env.PHONE_NUMBER,
   }; 
-  return Account.create(mock.request.username, mock.request.email, mock.request.password, mock.request.userPhoneNumber) 
+  return Account.create(
+    mock.request.username, 
+    mock.request.email, 
+    mock.request.password, 
+    mock.request.userPhoneNumber,
+  ) 
     .then((account) => {
       mock.account = account;
       return account.pCreateToken();

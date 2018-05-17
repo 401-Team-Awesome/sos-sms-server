@@ -18,18 +18,16 @@ describe('testing sms sos middleware', () => {
   afterAll(stopServer);
   afterEach(pRemoveAccountMock);
 
-  test('should send a request to our api', () => {
+  test('POST: should send a text message via twilio', () => {
     let userID = null;
     return pCreateAccountMock()
       .then((response) => {
-        userID = response._id;
+        userID = response.account._id;
         return sossms('400', userID, 'You are the responsible developer for this error.')
           .then((res) => {
             expect(res.status).toEqual(200);
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch(err => console.log(err));
       });
   });
   test('POST 400 due to bad request', () => {
