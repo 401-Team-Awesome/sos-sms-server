@@ -14,9 +14,9 @@ describe('ACCOUNT Router', () => {
   test('POST should return a 200 status code and a TOKEN', () => {
     return superagent.post(`${apiURL}/signup`)
       .send({
-        username: 'gregor',
-        email: 'gregar@gregor.com',
-        password: 'supersekret',
+        username: 'testuser',
+        email: 'testuser@testuser.com',
+        password: 'testuserpassword',
         userPhoneNumber: '+91112223333',
       })
       .then((response) => {
@@ -40,17 +40,17 @@ describe('ACCOUNT Router', () => {
   test('POST should return a 409 status code, no duplicates', () => {
     return superagent.post(`${apiURL}/signup`)
       .send({
-        username: 'gregor',
-        email: 'gregar@gregor.com',
-        password: 'supersekret',
+        username: 'testuser',
+        email: 'testuser@testuser.com',
+        password: 'testuserpassword',
         userPhoneNumber: '+12223334444',
       })
       .then(() => {
         return superagent.post(`${apiURL}/signup`)
           .send({
-            username: 'gregor',
-            email: 'gregar@gregor.com',
-            password: 'supersekret',
+            username: 'testuser',
+            email: 'testuser@testuser.com',
+            password: 'testuserpassword',
             userPhoneNumber: '+12223334444',
           })
           .then((Promise.reject))

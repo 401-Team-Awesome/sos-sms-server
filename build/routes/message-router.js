@@ -72,9 +72,9 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
     }).catch(function (err) {
       // console.log(err, 'this is the err in the catch');
     });
-  }).then(function (anything) {
+  }).then(function (messageResponse) {
     console.log('message sent via twilio');
-    return response.json(anything);
+    return response.json(messageResponse);
   }).catch(next);
 });
 

@@ -47,15 +47,22 @@ var accountRouter = new _express.Router();
 // ------------------------old post route------------------------
 
 accountRouter.post('/api/signup', jsonParser, function (request, response, next) {
+  var userId = null;
   console.log('in signup route', request.body);
   return _account2.default.create(request.body.username, request.body.email, request.body.password, request.body.userPhoneNumber).then(function (account) {
     console.log('we got the account', account);
     delete request.body.password;
+    userId = account._id;
     _logger2.default.log(_logger2.default.INFO, 'AUTH - creating TOKEN');
     return account.pCreateToken();
   }).then(function (token) {
     _logger2.default.log(_logger2.default.INFO, 'AUTH - returning a 200 code and a token');
-    return response.json({ token: token });
+    // response.body.id = userId;
+    // return response.json({ token });
+    return response.json({
+      token: token,
+      _id: userId
+    });
   }).catch(next);
 });
 
