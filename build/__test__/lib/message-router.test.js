@@ -30,7 +30,6 @@ var apiURL = 'http://localhost:' + process.env.PORT; // eslint-disable-line
 
 
 describe('testing sms sos middleware', function () {
-  console.log('starting test');
   _logger2.default.log(_logger2.default.INFO, 'this is the test starting');
 
   beforeAll(_server.startServer);
@@ -49,57 +48,35 @@ describe('testing sms sos middleware', function () {
     });
   });
   test('POST 400 due to bad request', function () {
-    return _superagent2.default.post(apiURL + '/api/messages/:id').send({
-      username: 'zachary',
-      password: 'doggy'
-    }).then(Promise.reject).catch(function (error) {
-      expect(error.status).toEqual(400);
-    });
-  });
-  test('POST 404 due to no account found', function () {
-    return _superagent2.default.post(apiURL + '/api/messages/').send({
-      username: 'zachary',
-      password: 'doggy'
-    }).then(Promise.reject).catch(function (error) {
-      expect(error.status).toEqual(404);
-    });
-  });
-  test('POST should return a 409 status code, no duplicates', function () {
-    return _superagent2.default.post(apiURL + '/signup').send({
-      username: 'billie',
-      email: 'billie@billie.com',
-      password: 'nobirdieisthebest'
-    }).then(function () {
-      return _superagent2.default.post(apiURL + '/api/messages').send({
-        username: 'billie',
-        email: 'billie@billie.com',
-        password: 'nobirdieisthebest'
-      }).then(Promise.reject).catch(function (err) {
-        expect(err.status).toEqual(409);
+    return (0, _accountMock.pCreateAccountMock)().then(function (response) {
+      return _superagent2.default.post(apiURL + '/api/messages/' + response.account._id).send({
+        username: 'zachary'
+      }).then(Promise.reject).catch(function (error) {
+        expect(error.status).toEqual(400);
       });
     });
   });
+  test('POST 404 due to no account found', function () {
+    return (0, _accountMock.pCreateAccountMock)().then(function () {
+      return _superagent2.default.post(apiURL + '/api/messages/notAValidId').send({
+        error: '500',
+        password: 'red alert'
+      }).then(Promise.reject).catch(function (error) {
+        expect(error.status).toEqual(404);
+      });
+    });
+  });
+
   test('GET /api/messages/:id should get a 200 status code and a TOKEN', function () {
     return (0, _messageMock.pCreateMessageMock)().then(function (mock) {
       return _superagent2.default.get(apiURL + '/api/messages/' + mock.message._id).set('Authorization', 'Bearer ' + mock.accountMock.token);
     }).then(function (response) {
-      console.log('LOOKING FOR RESPONSE', response.body);
       expect(response.status).toEqual(200);
       expect(response.body.token).toBeTruthy();
     }).catch(function () {
       console.log('catching error when 200 status expected for get message route');
     });
   });
-  // test('GET /api/messages/:id should return a 400 status code for a route not found', () => {
-  //   return superagent.get(`${apiURL}/api/messages/invalidID`)
-  //     .send({
-  //       userID: 'baduserID',
-  //     })
-  //     .then(Promise.reject)
-  //     .catch((err) => {
-  //       expect(err.status).toEqual(400);
-  //     });
-  // });
   test('GET /api/messages/:id should return 404 status when invalid id is sent', function () {
     return (0, _messageMock.pCreateMessageMock)().then(function (accountSetMock) {
       return _superagent2.default.get(apiURL + '/api/messages/invalidID').set('Authorization', 'Bearer ' + accountSetMock.accountMock.token);
