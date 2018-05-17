@@ -9,7 +9,6 @@ import Message from '../model/message';
 import Account from '../model/account';
 import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 
-// const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const jsonParser = bodyParser.json();
@@ -37,7 +36,8 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
               from: process.env.TWILIO_NUMBER,
               to: message.userPhoneNumber,
             })
-            .then(() => {
+            .then((twilioMessage) => {
+              console.log(twilioMessage.sid);
             })
             .done();
         })

@@ -36,7 +36,6 @@ var _bearerAuthMiddleware2 = _interopRequireDefault(_bearerAuthMiddleware);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 var client = new _twilio2.default(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 var jsonParser = _bodyParser2.default.json();
@@ -59,7 +58,9 @@ messageRouter.post('/api/messages/:id', jsonParser, function (request, response,
         body: request.body.error + ': ' + request.body.message,
         from: process.env.TWILIO_NUMBER,
         to: message.userPhoneNumber
-      }).then(function () {}).done();
+      }).then(function (twilioMessage) {
+        console.log(twilioMessage.sid);
+      }).done();
     }).catch(function (err) {
       console.log(err);
     });
