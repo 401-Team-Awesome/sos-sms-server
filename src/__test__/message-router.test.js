@@ -1,12 +1,11 @@
 'use strict';
 
 import superagent from 'superagent';
-import faker from 'faker'; // eslint-disable-line
-import { startServer, stopServer } from '../../lib/server';
-import sossms from '../../lib/sos-sms-middleware';
-import { pCreateMessageMock, pRemoveMessageMock } from '../lib/message-mock'; // eslint-disable-line
-import { pCreateAccountMock, pRemoveAccountMock } from '../lib/account-mock'; // eslint-disable-line
-import logger from '../../lib/logger';
+import { startServer, stopServer } from '../lib/server';
+import sossms from '../lib/sos-sms-middleware';
+import { pCreateMessageMock } from './lib/message-mock';
+import { pCreateAccountMock, pRemoveAccountMock } from './lib/account-mock';
+import logger from '../lib/logger';
 
 
 const apiURL = `http://localhost:${process.env.PORT}`;
@@ -24,7 +23,7 @@ describe('testing sms sos middleware', () => {
     return pCreateAccountMock()
       .then((response) => {
         userID = response._id;
-        return sossms('400', userID, 'You are the responsbile developer for this error.')
+        return sossms('400', userID, 'You are the responsible developer for this error.')
           .then((res) => {
             expect(res.status).toEqual(200);
           })

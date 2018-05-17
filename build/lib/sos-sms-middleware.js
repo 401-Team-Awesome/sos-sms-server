@@ -10,8 +10,8 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const apiURL = `http://localhost:${process.env.PORT}`;
-var apiURL = 'https://sos-sms.herokuapp.com';
+var apiURL = 'http://localhost:' + process.env.PORT;
+// const apiURL = 'https://sos-sms.herokuapp.com';
 
 exports.default = function (error, userID, message) {
   return _superagent2.default.post(apiURL + '/api/messages/' + userID).send({ error: error, message: message }).then(function (data) {

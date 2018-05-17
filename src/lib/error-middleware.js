@@ -2,7 +2,7 @@
 
 import logger from './logger';
 
-export default (error, request, response) => { 
+export default (error, request, response, next) => { // eslint-disable-line
   logger.log(logger.ERROR, '__ERROR_IN_MIDDLEWARE__');
   logger.log(logger.ERROR, error);
 

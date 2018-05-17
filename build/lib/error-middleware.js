@@ -10,7 +10,8 @@ var _logger2 = _interopRequireDefault(_logger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (error, request, response) {
+exports.default = function (error, request, response, next) {
+  // eslint-disable-line
   _logger2.default.log(_logger2.default.ERROR, '__ERROR_IN_MIDDLEWARE__');
   _logger2.default.log(_logger2.default.ERROR, error);
 
