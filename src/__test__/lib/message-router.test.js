@@ -34,25 +34,30 @@ describe('testing sms sos middleware', () => {
       });
   });
   test('POST 400 due to bad request', () => {
-    return superagent.post(`${apiURL}/api/messages/:id`)
-      .send({
-        username: 'zachary',
-        password: 'doggy',
-      })
-      .then(Promise.reject)
-      .catch((error) => {
-        expect(error.status).toEqual(400);
+    return pCreateAccountMock()
+      .then((response) => {
+        return superagent.post(`${apiURL}/api/messages/${response.account._id}`)
+          .send({
+            username: 'zachary',
+          })
+          .then(Promise.reject)
+          .catch((error) => {
+            expect(error.status).toEqual(400);
+          });
       });
   });
   test('POST 404 due to no account found', () => {
-    return superagent.post(`${apiURL}/api/messages/`)
-      .send({
-        username: 'zachary',
-        password: 'doggy',
-      })
-      .then(Promise.reject)
-      .catch((error) => {
-        expect(error.status).toEqual(404);
+    return pCreateAccountMock()
+      .then(() => {
+        return superagent.post(`${apiURL}/api/messages/notAValidId`)
+          .send({
+            error: '500',
+            password: 'red alert',
+          })
+          .then(Promise.reject)
+          .catch((error) => {
+            expect(error.status).toEqual(404);
+          });
       });
   });
   test('GET /api/messages/:id should get a 200 status code and a TOKEN', () => {
