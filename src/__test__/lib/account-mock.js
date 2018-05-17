@@ -5,7 +5,6 @@
 
 
 // const pCreateAccountMock = () => {
-//   console.log('inside createaccountmock');
 //   return new Account({
 //     // userPhoneNumber: '123456',
 //     userPhoneNumber: process.env.PHONE_NUMBER,
@@ -32,18 +31,15 @@ const pCreateAccountMock = () => {
   }; 
   return Account.create(mock.request.username, mock.request.email, mock.request.password, mock.request.userPhoneNumber) 
     .then((account) => {
-      console.log('WERE in the AUTH CREATE FUNCTION', account);
       mock.account = account;
       return account.pCreateToken();
     })
     .then((token) => {
-      console.log(token, 'TOKEN MOCK ACCOUNT');
       mock.token = token;
       return Account.findById(mock.account._id);
     })
     .then((account) => {
       mock.account = account;
-      console.log(mock, 'WHERE IS THE TOKEN MOCK ACCOUNT');
       return mock;
     });
 };
