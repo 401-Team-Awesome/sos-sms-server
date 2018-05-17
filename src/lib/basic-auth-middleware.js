@@ -4,11 +4,9 @@ import HttpError from 'http-errors';
 import Account from '../model/account';
 
 export default (request, response, next) => {
-
   if (!request.headers.authorization) {
     return next(new HttpError(400, 'AUTH BASIC - no header invalid request!'));
   }
-
 
   const base64AuthHeader = request.headers.authorization.split('Basic ')[1];
   if (!base64AuthHeader) {
@@ -24,7 +22,7 @@ export default (request, response, next) => {
   return Account.findOne({ username })
     .then((account) => {
       if (!account) {
-        return next(new HttpError(404, 'no such account'))
+        return next(new HttpError(404, 'no such account'));
       }
       return account.pVerifyPassword(password);
     })
@@ -34,4 +32,3 @@ export default (request, response, next) => {
     })
     .catch(next);
 };
-
