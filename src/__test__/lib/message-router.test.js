@@ -75,4 +75,18 @@ describe('testing sms sos middleware', () => {
           });
       });
   });
+  test.only('GET /api/messages/:id should get a 200 status code and a TOKEN', () => {
+    return pCreateAccountMock()
+      .then((mock) => {
+        return superagent.get(`${apiURL}/messages/:id`)
+          .auth(mock.request.username, mock.request.password);
+      })
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        expect(response.body.token).toBeTruthy();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 });

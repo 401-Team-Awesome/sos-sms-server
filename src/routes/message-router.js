@@ -50,12 +50,26 @@ messageRouter.post('/api/messages/:id', jsonParser, (request, response, next) =>
             .done();
         })
         .catch((err) => {
-          // console.log(err, 'this is the err in the catch');
+          console.log(err, 'this is the err in the catch');
         });
     })
     .then((anything) => {
       console.log('message sent via twilio');
       return response.json(anything);
+    })
+    .catch(next);
+});
+
+messageRouter.get('/api/messages/:id', bearerAuthMiddleware, (request, response, next) => {
+  return Message.findById(request.params.id)
+    .then((message) => {
+      if (!message) {
+        logger.log(logger.ERROR, 'MESSAGE ROUTER: responding with a 404 status code for !messages');
+        return next(new HttpErrors(404, 'messages not found'));
+      }
+      logger.log(logger.INFO, 'MESSAGE ROUTER: responding with a 200 status code');
+      logger.log(logger.INFO, `MESSAGE ROUTER: ${JSON.stringify(message)}`);
+      return response.json(message);
     })
     .catch(next);
 });
