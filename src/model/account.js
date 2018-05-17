@@ -11,31 +11,31 @@ const TOKEN_SEED_LENGTH = 128;
 const accountSchema = mongoose.Schema({
   userPhoneNumber: {
     type: String, 
-    // required: true,
+    required: true,
   },
   username: {
     type: String,
-    // required: true,
-    // unique: true,
+    required: true,
+    unique: true,
   },
   email: {
     type: String,
-    // required: true, 
-    // unique: true,
+    required: true, 
+    unique: true,
   },
-  password: {
-    type: String,
-    // required: true,
-    // unique: true,
-  },
+  // password: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
   passwordHash: {
     type: String,
-    // required: true,
+    required: true,
   },
   tokenSeed: {
     type: String,
-    // required: true,
-    // unique: true,
+    required: true,
+    unique: true,
   },
   timeStamp: {
     type: Date, 
@@ -71,6 +71,8 @@ Account.create = (username, email, password, userPhoneNumber) => {
       password = null; 
       const tokenSeed = crypto.randomBytes(TOKEN_SEED_LENGTH).toString('hex');
       return new Account({
+        username, 
+        email,
         passwordHash,
         tokenSeed,
         userPhoneNumber,

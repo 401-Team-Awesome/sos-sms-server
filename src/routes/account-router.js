@@ -2,7 +2,7 @@
 
 import { Router } from 'express';
 import bodyParser from 'body-parser';
-import HttpErrors from 'http-errors';
+import HttpError from 'http-errors';
 import logger from '../lib/logger';
 import Account from '../model/account';
 import basicAuthMiddleware from '../lib/basic-auth-middleware';
@@ -25,9 +25,12 @@ const accountRouter = new Router();
 //     .catch(next);
 // });
 // ------------------------old post route------------------------
+
 accountRouter.post('/api/signup', jsonParser, (request, response, next) => {
-  return Account.create(request.body.username, request.body.email, request.username.password)
+  console.log('in signup route', request.body);
+  return Account.create(request.body.username, request.body.email, request.body.password, request.body.userPhoneNumber)
     .then((account) => {
+      console.log('we got the account', account);
       delete request.body.password;
       logger.log(logger.INFO, 'AUTH - creating TOKEN');
       return account.pCreateToken();
