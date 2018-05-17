@@ -10,7 +10,6 @@ import logger from '../lib/logger';
 const apiURL = `http://localhost:${process.env.PORT}`;
 
 describe('testing sms sos middleware', () => {
-  console.log('starting test');
   logger.log(logger.INFO, 'this is the test starting');
 
   beforeAll(startServer);
@@ -21,10 +20,8 @@ describe('testing sms sos middleware', () => {
     let userID = null;
     return pCreateAccountMock()
       .then((response) => {
-        console.log(response, 'this is the response of the createAccountMock');
         userID = response.account._id;
-        console.log(userID, 'this is the userid');
-        return sossms('400', userID, 'its your problem yo')
+        return sossms('400', userID, 'You are the responsible developer for this error!')
           .then((res) => {
             expect(res.status).toEqual(200);
           })
@@ -35,8 +32,7 @@ describe('testing sms sos middleware', () => {
   });
   test('POST - should display 409 if there is a duplicate', () => {
     return pCreateAccountMock()
-      .then((accountMock) => {
-        console.log(accountMock, 'HERE IS  MY LOOOOG');
+      .then((accountMock) => { // eslint-disable-line
         const duplicateData = {
           userPhoneNumber: '+15555555555',
         };
@@ -71,15 +67,4 @@ describe('testing sms sos middleware', () => {
         expect(response.status).toEqual(404);
       });
   });
-  // test('should post message to deployed db and send a request to our api', () => {
-  //   const userID = '5afc756cd3fbe3001a1e8180';
-  //   return sossms('400', userID, 'testing deployed again')
-  //     .then((res) => {
-  //       expect(res.status).toEqual(200);
-  //       console.log('INSIDE OF TEST POST !!!!!');
-  //     })
-  //     .catch((err) => {
-  //       console.log('start of error', err, 'end of error');
-  //     });
-  // });
 });
