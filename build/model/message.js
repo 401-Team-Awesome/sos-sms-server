@@ -21,27 +21,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // eslint-disable-line
 
 var messageSchema = _mongoose2.default.Schema({
-  // user: {
-  //   type: String,
-  //   // required: true,
-  //   unique: true,
-  // },
   userPhoneNumber: {
     type: String
   },
   error: {
     type: String
-    // required: true,
   },
-  // errorLocation: {
-  //   type: String,
-  // },
   message: {
     type: String
   },
-  // response: {
-  //   type: String,
-  // },
   account: {
     type: _mongoose2.default.Schema.Types.ObjectId,
     required: true
@@ -52,6 +40,5 @@ var messageSchema = _mongoose2.default.Schema({
       return new Date();
     }
   }
-});
-
+}); // eslint-disable-line
 exports.default = _mongoose2.default.model('message', messageSchema);

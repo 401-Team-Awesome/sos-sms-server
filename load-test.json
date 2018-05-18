@@ -1,0 +1,46 @@
+{
+  "config": {
+    "target": "https://sos-sms.herokuapp.com/api",
+    "phases": [
+      {
+       "duration": 60,
+       "arrivalRate": 5
+      },
+      {
+        "duration": 120,
+        "arrivalRate": 5,
+        "rampTo": 50
+       },
+       {
+        "duration": 30,
+        "arrivalRate": 100
+       }
+    ],
+    "processor" : "./load-test-create-user.js"
+  },
+  "scenarios": [
+    {
+      "name": "Create Users",
+      "flow": [
+        {
+          "function": "create"
+        },
+        {
+          "post": {
+            "url": "/signup",
+            "json": {
+              "username": "{{ username }}",
+              "email": "{{ email }}",
+              "password": "{{ password }}",
+              "userPhoneNumber": "{{ userPhoneNumber }}"
+            },
+            "capture": {
+              "json": "$._id",
+              "as": "id"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

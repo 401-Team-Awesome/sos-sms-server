@@ -2,7 +2,7 @@
 
 import logger from './logger';
 
-export default (error, request, response, next) => {
+export default (error, request, response, next) => { // eslint-disable-line
   logger.log(logger.ERROR, '__ERROR_IN_MIDDLEWARE__');
   logger.log(logger.ERROR, error);
 
@@ -32,8 +32,7 @@ export default (error, request, response, next) => {
     logger.log(logger.INFO, 'Responding with a 401 code');
     return response.sendStatus(401);
   }
-
   logger.log(logger.ERROR, 'Responding with a 500 error code');
-  logger.log(logger.ERROR, error);
+  logger.log(logger.INFO, error);
   return response.sendStatus(500);
 };

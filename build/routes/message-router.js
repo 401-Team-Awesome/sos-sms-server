@@ -30,9 +30,12 @@ var _account = require('../model/account');
 
 var _account2 = _interopRequireDefault(_account);
 
+var _bearerAuthMiddleware = require('../lib/bearer-auth-middleware');
+
+var _bearerAuthMiddleware2 = _interopRequireDefault(_bearerAuthMiddleware);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 var client = new _twilio2.default(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 var jsonParser = _bodyParser2.default.json();
@@ -40,38 +43,39 @@ var messageRouter = new _express.Router();
 
 messageRouter.post('/api/messages/:id', jsonParser, function (request, response, next) {
   _logger2.default.log(_logger2.default.INFO, 'MESSAGE-ROUTER POST: processing a request');
-  console.log(request.body, 'this is the body');
   if (!request.body.error) {
     _logger2.default.log(_logger2.default.INFO, 'MESSAGE-ROUTER POST: Error message required.');
     return next(new _httpErrors2.default(400, 'Error message required.'));
   }
   return _account2.default.findById(request.params.id).then(function (account) {
-    console.log(request.body, 'request body in findbyid return');
     console.log(account, 'this is the account');
-    console.log(account.userPhoneNumber);
     return new _message2.default({
       userPhoneNumber: account.userPhoneNumber,
       account: account._id,
       error: request.body.error,
       message: request.body.message
     }).save().then(function (message) {
-      console.log(request.body.error, request.body.message, 'error and message');
-      console.log(message.userPhoneNumber, 'this is the phoneNumber from the message model');
+      console.log(message, 'this is the message');
       client.messages.create({
         body: request.body.error + ': ' + request.body.message,
         from: process.env.TWILIO_NUMBER,
         to: message.userPhoneNumber
       }).then(function (twilioMessage) {
-        console.log('hi');
-        console.log(twilioMessage.sid, 'this is the message.sid');
+        console.log(twilioMessage.sid);
       }).done();
     }).catch(function (err) {
-      console.log(err, 'this is the err in the catch');
+      console.log(err);
     });
-  }).then(function (anything) {
-    console.log('anything', anything);
-    console.log('message sent via twilio');
-    return response.json(anything);
+  }).then(function (messageResponse) {
+    return response.json(messageResponse);
+  }).catch(next);
+});
+
+messageRouter.get('/api/messages/:id', _bearerAuthMiddleware2.default, function (request, response, next) {
+  return _message2.default.findById(request.params.id).then(function (message) {
+    _logger2.default.log(_logger2.default.INFO, 'MESSAGE ROUTER: responding with a 200 status code');
+    _logger2.default.log(_logger2.default.INFO, 'MESSAGE ROUTER: ' + JSON.stringify(message));
+    return response.json(message);
   }).catch(next);
 });
 
