@@ -53,7 +53,7 @@ accountRouter.get('/api/login', _basicAuthMiddleware2.default, function (request
   if (!request.account) {
     return next(new _httpErrors2.default(404, 'AUTH - no resource, now in auth-router'));
   }
-  var userId = null;
+  var userId = request.account._id;
   return request.account.pCreateToken().then(function (token) {
     _logger2.default.log(_logger2.default.INFO, 'LOGIN - AuthRouter responding with a 200 status and a Token');
     return response.json({
