@@ -4,7 +4,7 @@
 
 Contributors: [Sarah Bixler](https://github.com/sarasaurus), [Cara Ottmar](https://github.com/cottmar), [Zachary Schumpert](https://github.com/buphnezz), [Carl Olson](https://github.com/colson10)
 
-This application allows a user to easily send at text message containing  an error number and error message from any where in their code.  To do so the user must first install the __sossms__ npm package, which will enable them to use our function.
+This application allows a user to easily send a text message containing  an error number and error message from any where in their code.  To do so the user must first install the __sossms__ npm package, which will enable them to use our function.
 
 A [__Twilio__](https://twilio.com) account is required to utilize the sossms  sms messaging capability.  The user must provide a twilio phone number, where the error message will be texted from and also input a phone number that the error message will be texted to.
 
